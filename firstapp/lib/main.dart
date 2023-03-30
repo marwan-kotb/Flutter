@@ -1,18 +1,31 @@
 import 'package:flutter/material.dart';
-
 void main() {
   runApp(
     MaterialApp(
-      title: 'First Application',
+      title: 'Birthday Card',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('First Application'),
-          foregroundColor: Colors.black,
-          backgroundColor: Colors.white,
+          title: const Text('Birthday Card'),
+          foregroundColor: Colors.white,
+          backgroundColor: Colors.green,
         ),
+        
         body: Center(
-          child: Text('Marwan Madmouh Kotb Mohamed'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/image2.jpg'),
+              const Text(
+                'Happy Birthday !!',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.blue,
+                ),
+              ),
+            ],
+          ),
         ),
+
       ),
     ),
   );
