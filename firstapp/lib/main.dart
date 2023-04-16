@@ -1,90 +1,108 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.teal,
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // ignore: prefer_const_constructors
-              CircleAvatar(
-                radius: 50.0,
-                backgroundImage: const AssetImage('assets/face.jpg'),
-              ),
-              const Text(
-                'Marwan Mamdouh',
-                style: TextStyle(
-                  fontFamily: 'Pacifico',
-                  fontSize: 40.0,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                'BACKEND DEVELOPER',
-                style: TextStyle(
-                  fontFamily: 'Source Sans Pro',
-                  color: Colors.teal.shade100,
-                  fontSize: 20.0,
-                  letterSpacing: 2.5,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-                width: 150.0,
-                child: Divider(
-                  color: Colors.teal.shade100,
-                ),
-              ),
-              Card(
-                margin: const EdgeInsets.symmetric(
-                    vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  // ignore: prefer_const_constructors
-                  leading: Icon(
-                    Icons.phone,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    '+20 1060 505 633',
-                    style: TextStyle(
-                      color: Colors.teal.shade900,
-                      fontFamily: 'Source Sans Pro',
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ),
-              ),
+class ScoreCounter extends StatefulWidget {
+  @override
+  _ScoreCounterState createState() => _ScoreCounterState();
+}
 
-              Card(
-                margin: const EdgeInsets.symmetric(
-                    vertical: 10.0, horizontal: 25.0),
-                child: ListTile(
-                  // ignore: prefer_const_constructors
-                  leading: Icon(
-                    Icons.email,
-                    color: Colors.teal,
-                  ),
-                  title: Text(
-                    'marwan'
-                    '@'
-                    'marwan.io',
-                    style: TextStyle(
-                      color: Colors.teal.shade900,
-                      fontFamily: 'Source Sans Pro',
-                      fontSize: 20.0,
-                    ),
-                  ),
+class _ScoreCounterState extends State<ScoreCounter> {
+  int homeScore = 0;
+  int awayScore = 0;
+
+  void _addPoints(String team, int points) {
+    setState(() {
+      if (team == "home") {
+        homeScore += points;
+      } else if (team == "away") {
+        awayScore += points;
+      }
+    });
+  }
+
+  void _resetScores() {
+    setState(() {
+      homeScore = 0;
+      awayScore = 0;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Basketball Score Counter'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'TEAM A: $homeScore',
+              style: TextStyle(fontSize: 48),
+            ),
+            SizedBox(height: 16),
+            Text(
+              'TEAM B: $awayScore',
+              style: TextStyle(fontSize: 48),
+            ),
+            SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _addPoints("home", 1),
+                  child: Text('1 Point'),
                 ),
-              ),
-            ],
-          ),
+                ElevatedButton(
+                  onPressed: () => _addPoints("home", 2),
+                  child: Text('2 Points'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _addPoints("home", 3),
+                  child: Text('3 Points'),
+                ),
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _addPoints("away", 1),
+                  child: Text('1 Point'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _addPoints("away", 2),
+                  child: Text('2 Points'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _addPoints("away", 3),
+                  child: Text('3 Points'),
+                ),
+              ],
+            ),
+            SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: _resetScores,
+              child: Text('Reset Scores'),
+            ),
+          ],
         ),
       ),
-    ),
-  );
+    );
+  }
+}
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Basketball Score Counter',
+      home: ScoreCounter(),
+    );
+  }
 }
